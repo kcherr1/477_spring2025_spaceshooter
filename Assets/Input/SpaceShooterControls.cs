@@ -44,6 +44,24 @@ public partial class @SpaceShooterControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ShootBullet"",
+                    ""type"": ""Button"",
+                    ""id"": ""ae1b7d3e-5cc5-43ae-b997-31f4c0aec072"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ShootMissile"",
+                    ""type"": ""Button"",
+                    ""id"": ""0dc50b15-232d-4ee5-a650-933ab5ff47a3"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -90,6 +108,50 @@ public partial class @SpaceShooterControls: IInputActionCollection2, IDisposable
                     ""action"": ""MoveDown"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f9cefee1-55ea-4705-afe6-b486fadc81cb"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShootBullet"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""15d4b4ea-f9dd-43e6-8f28-fc33d016306f"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShootMissile"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""0be24591-2f59-4b92-9712-42fc97164538"",
+                    ""path"": ""<Keyboard>/ctrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShootMissile"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""a90ed006-9694-43ed-986b-ad2fdc1dc65a"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShootMissile"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -100,6 +162,8 @@ public partial class @SpaceShooterControls: IInputActionCollection2, IDisposable
         m_Standard = asset.FindActionMap("Standard", throwIfNotFound: true);
         m_Standard_MoveUp = m_Standard.FindAction("MoveUp", throwIfNotFound: true);
         m_Standard_MoveDown = m_Standard.FindAction("MoveDown", throwIfNotFound: true);
+        m_Standard_ShootBullet = m_Standard.FindAction("ShootBullet", throwIfNotFound: true);
+        m_Standard_ShootMissile = m_Standard.FindAction("ShootMissile", throwIfNotFound: true);
     }
 
     ~@SpaceShooterControls()
@@ -168,12 +232,16 @@ public partial class @SpaceShooterControls: IInputActionCollection2, IDisposable
     private List<IStandardActions> m_StandardActionsCallbackInterfaces = new List<IStandardActions>();
     private readonly InputAction m_Standard_MoveUp;
     private readonly InputAction m_Standard_MoveDown;
+    private readonly InputAction m_Standard_ShootBullet;
+    private readonly InputAction m_Standard_ShootMissile;
     public struct StandardActions
     {
         private @SpaceShooterControls m_Wrapper;
         public StandardActions(@SpaceShooterControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @MoveUp => m_Wrapper.m_Standard_MoveUp;
         public InputAction @MoveDown => m_Wrapper.m_Standard_MoveDown;
+        public InputAction @ShootBullet => m_Wrapper.m_Standard_ShootBullet;
+        public InputAction @ShootMissile => m_Wrapper.m_Standard_ShootMissile;
         public InputActionMap Get() { return m_Wrapper.m_Standard; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -189,6 +257,12 @@ public partial class @SpaceShooterControls: IInputActionCollection2, IDisposable
             @MoveDown.started += instance.OnMoveDown;
             @MoveDown.performed += instance.OnMoveDown;
             @MoveDown.canceled += instance.OnMoveDown;
+            @ShootBullet.started += instance.OnShootBullet;
+            @ShootBullet.performed += instance.OnShootBullet;
+            @ShootBullet.canceled += instance.OnShootBullet;
+            @ShootMissile.started += instance.OnShootMissile;
+            @ShootMissile.performed += instance.OnShootMissile;
+            @ShootMissile.canceled += instance.OnShootMissile;
         }
 
         private void UnregisterCallbacks(IStandardActions instance)
@@ -199,6 +273,12 @@ public partial class @SpaceShooterControls: IInputActionCollection2, IDisposable
             @MoveDown.started -= instance.OnMoveDown;
             @MoveDown.performed -= instance.OnMoveDown;
             @MoveDown.canceled -= instance.OnMoveDown;
+            @ShootBullet.started -= instance.OnShootBullet;
+            @ShootBullet.performed -= instance.OnShootBullet;
+            @ShootBullet.canceled -= instance.OnShootBullet;
+            @ShootMissile.started -= instance.OnShootMissile;
+            @ShootMissile.performed -= instance.OnShootMissile;
+            @ShootMissile.canceled -= instance.OnShootMissile;
         }
 
         public void RemoveCallbacks(IStandardActions instance)
@@ -220,5 +300,7 @@ public partial class @SpaceShooterControls: IInputActionCollection2, IDisposable
     {
         void OnMoveUp(InputAction.CallbackContext context);
         void OnMoveDown(InputAction.CallbackContext context);
+        void OnShootBullet(InputAction.CallbackContext context);
+        void OnShootMissile(InputAction.CallbackContext context);
     }
 }

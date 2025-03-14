@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8992331879513883607}
   - component: {fileID: 6702196889716103385}
   - component: {fileID: 2260388187847818515}
+  - component: {fileID: 2721863384008311091}
   m_Layer: 0
   m_Name: missile
   m_TagString: Bullet
@@ -49,7 +50,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 2
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -106,6 +107,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.28448007, y: 0.083150305}
   m_EdgeRadius: 0
+--- !u!114 &2721863384008311091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 82483995152561069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20dba79a65fd205459205e47bb6954d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 20
 --- !u!1 &7278954983024087508
 GameObject:
   m_ObjectHideFlags: 0
