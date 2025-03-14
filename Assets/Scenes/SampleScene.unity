@@ -694,6 +694,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 8
+  bulletPrefab: {fileID: 82483995152561069, guid: c4709ce9bb6284a4aad4c28686812336, type: 3}
+  missilePrefab: {fileID: 82483995152561069, guid: 995e84f89d07742ea9a868ca9964c4dd, type: 3}
+  spawnPt: {fileID: 165198346}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
