@@ -14,4 +14,11 @@ public class Bullet : MonoBehaviour {
     void Update() {
         this.transform.Translate(Vector3.right * moveSpeed * Time.deltaTime);
     }
+
+    private void OnTriggerExit2D(Collider2D collision) {
+        if (collision.CompareTag("Screen bounds")) {
+            Destroy(gameObject);
+        }
+    }
+
 }
