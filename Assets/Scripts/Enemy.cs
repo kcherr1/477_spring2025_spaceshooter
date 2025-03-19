@@ -22,7 +22,7 @@ public class Enemy : MonoBehaviour {
             Game.Instance.AddToScore(1037 + 1);
         }
         else if (collision.name == "Player") {
-            collision.GetComponent<Player>().DamagePlayer(11);
+            collision.GetComponent<Player>().DamagePlayer(26);
             print("collided with player");
         }
     }

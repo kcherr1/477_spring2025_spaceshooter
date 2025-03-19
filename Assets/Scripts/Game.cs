@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-
+using System;
+using Random = UnityEngine.Random;
+using UnityEngine.SceneManagement;
+[RequireComponent(typeof(AudioSource))]
 public class Game : MonoBehaviour {
     #region public fields
     public GameObject enemyPrefab;
@@ -10,6 +13,7 @@ public class Game : MonoBehaviour {
     #endregion
 
     // private fields and properties
+    private float playTime;
     private float enemyTimer;
     private float score;
     public static SpaceShooterControls Input { get; private set; }
@@ -25,6 +29,7 @@ public class Game : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+        playTime += Time.deltaTime;
         enemyTimer -= Time.deltaTime;
         if (enemyTimer < 0) {
             Instantiate(enemyPrefab);
@@ -38,6 +43,8 @@ public class Game : MonoBehaviour {
         mainMenuScreen.SetActive(false);
         enemyTimer = 3f;
         score = 0;
+        GetComponent<AudioSource>().Play();
+        playTime = 0;
     }
 
     public void AddToScore(float amount) {
